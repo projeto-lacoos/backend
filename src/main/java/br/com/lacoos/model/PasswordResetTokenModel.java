@@ -5,13 +5,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "password_reset_token")
+@Table(name = "senha_resetar_token")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PasswordResetToken {
+public class PasswordResetTokenModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +22,13 @@ public class PasswordResetToken {
     private String token;
 
     @OneToOne(targetEntity = UserModel.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "id")
+    @JoinColumn(nullable = false, name = "user_id")
     private UserModel user;
 
-    @Column(name = "expiry_date")
+    @Column(name = "expirar_data")
     private LocalDateTime expiryDate;
 
-    @Column(name = "used_token", columnDefinition = "boolean default false")
+    @Column(name = "token_usado", columnDefinition = "boolean default false")
     private Boolean usedToken;
 
 }

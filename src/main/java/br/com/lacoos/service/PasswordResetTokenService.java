@@ -1,6 +1,6 @@
 package br.com.lacoos.service;
 
-import br.com.lacoos.model.PasswordResetToken;
+import br.com.lacoos.model.PasswordResetTokenModel;
 import br.com.lacoos.repository.PasswordResetTokenRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +18,8 @@ public class PasswordResetTokenService {
 
     public ResponseEntity<Boolean> isTokenValid(String token){
         log.info("Check if token is valid: {}", token);
-        PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token).orElseThrow(() -> new RuntimeException("Token not found"));
-        LocalDateTime tokenCreationTime = passwordResetToken.getExpiryDate();
+        PasswordResetTokenModel passwordResetTokenModel = passwordResetTokenRepository.findByToken(token).orElseThrow(() -> new RuntimeException("Token not found"));
+        LocalDateTime tokenCreationTime = passwordResetTokenModel.getExpiryDate();
         LocalDateTime expirationTime = tokenCreationTime.plusHours(24);
         if (expirationTime.isBefore(LocalDateTime.now())){
             log.error("Token expired!");

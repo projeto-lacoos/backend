@@ -24,7 +24,7 @@ public class UserModel implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "nome", nullable = false)
     private String name;
 
     @Column(name = "email", nullable = false, unique = true)

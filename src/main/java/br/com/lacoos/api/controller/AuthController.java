@@ -13,7 +13,6 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/v1/auth")
-@CrossOrigin()
 @AllArgsConstructor
 @Slf4j
 public class AuthController {
@@ -32,6 +31,6 @@ public class AuthController {
 
     @GetMapping
     public String Home(){
-        return "Olá mundo!";
+        return "SEJA BEM VINDO A API LAÇOOS!";
     }
 }

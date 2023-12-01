@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/configuration/security",
                         "/swagger-ui.html",
                         "/webjars/**").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.GET, "/v1/auth").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/auth/login").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/user/recover-password").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/user/reset-password/**").permitAll()

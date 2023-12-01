@@ -6,7 +6,7 @@ import br.com.lacoos.api.request.UserRequest;
 import br.com.lacoos.api.response.DefaultMessageResponse;
 import br.com.lacoos.api.response.TokenResponse;
 import br.com.lacoos.infra.exceptions.InvalidParamsException;
-import br.com.lacoos.model.PasswordResetToken;
+import br.com.lacoos.model.PasswordResetTokenModel;
 import br.com.lacoos.model.UserModel;
 import br.com.lacoos.repository.PasswordResetTokenRepository;
 import br.com.lacoos.repository.UserRepository;
@@ -15,8 +15,6 @@ import br.com.lacoos.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,7 +40,7 @@ public class UserService {
     private PasswordResetTokenRepository passwordResetTokenRepository;
     private final EmailService emailService;
 
-    public ResponseEntity<Void> signUp(UserRequest userRequest){
+    public ResponseEntity<Void> signUp(UserRequest userRequest) {
         log.info("Save user: {}", userRequest);
         if (userRepository.existsByEmailOrCpf(userRequest.getEmail(), userRequest.getCpf())) {
             log.error("E-mail ou CPF já existe");
@@ -58,7 +56,7 @@ public class UserService {
 
     public ResponseEntity<TokenResponse> login(LoginRequest loginRequest) {
         log.info("Login user: {}", loginRequest);
-        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
+        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getSenha());
         Authentication auth = manager.authenticate(userToken);
         String token = tokenService.generateToken((UserModel) auth.getPrincipal());
         return ResponseEntity.status(HttpStatus.OK).body(new TokenResponse(token));
@@ -69,30 +67,31 @@ public class UserService {
         Optional<UserModel> user = userRepository.byEmail(email);
         if (user.isPresent()) {
             log.info("User found: {}", user.get());
-            PasswordResetToken passwordResetToken = PasswordResetToken.builder()
+            PasswordResetTokenModel passwordResetTokenModel = PasswordResetTokenModel.builder()
                     .token(UUID.randomUUID().toString())
                     .user(user.get())
                     .expiryDate(LocalDateTime.now())
                     .build();
-            passwordResetTokenRepository.save(passwordResetToken);
-            emailService.sendEmail(user.get(), ApplicationUtils.siteUrl + passwordResetToken.getToken());
+            passwordResetTokenRepository.save(passwordResetTokenModel);
+            emailService.sendEmail(user.get(), ApplicationUtils.siteUrl + passwordResetTokenModel.getToken());
             return ResponseEntity.ok().build();
         }
         log.error("User not found for email: {}", email);
         return ResponseEntity.badRequest().build();
     }
 
-    public ResponseEntity<DefaultMessageResponse> resetPassword(String token, PasswordRecoverRequest password){
+    public ResponseEntity<DefaultMessageResponse> resetPassword(String token, PasswordRecoverRequest password) {
         log.info("Reset password for token: {}", token);
-        Optional<PasswordResetToken> passwordResetToken = passwordResetTokenRepository.findByToken(token);
-        if (passwordResetToken.isPresent() && !passwordResetToken.get().getUsedToken()){
+        Optional<PasswordResetTokenModel> passwordResetToken = passwordResetTokenRepository.findByToken(token);
+        if (passwordResetToken.isPresent() && !passwordResetToken.get().getUsedToken()) {
             log.info("Token found: {}", passwordResetToken.get());
             LocalDateTime tokenCreationTime = passwordResetToken.get().getExpiryDate();
             LocalDateTime expirationTime = tokenCreationTime.plusHours(24);
-            if (expirationTime.isBefore(LocalDateTime.now())){
+            if (expirationTime.isBefore(LocalDateTime.now())) {
                 log.error("Token expired!");
                 return ResponseEntity.badRequest().body(new DefaultMessageResponse("Token expired!"));
-            } if (!password.getPassword().equals(password.getConfirmPassword())){
+            }
+            if (!password.getPassword().equals(password.getConfirmPassword())) {
                 log.error("Password and confirm password not match!");
                 return ResponseEntity.badRequest().body(new DefaultMessageResponse("Password and confirm password not match"));
             }
