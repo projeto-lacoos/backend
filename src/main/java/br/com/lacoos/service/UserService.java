@@ -56,7 +56,7 @@ public class UserService {
 
     public ResponseEntity<TokenResponse> login(LoginRequest loginRequest) {
         log.info("Login user: {}", loginRequest);
-        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getSenha());
+        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
         Authentication auth = manager.authenticate(userToken);
         String token = tokenService.generateToken((UserModel) auth.getPrincipal());
         return ResponseEntity.status(HttpStatus.OK).body(new TokenResponse(token));
@@ -73,7 +73,7 @@ public class UserService {
                     .expiryDate(LocalDateTime.now())
                     .build();
             passwordResetTokenRepository.save(passwordResetTokenModel);
-            emailService.sendEmail(user.get(), ApplicationUtils.siteUrl + passwordResetTokenModel.getToken());
+            emailService.sendEmail(user.get(), "http://localhost:3000/resetar-senha/#/" + passwordResetTokenModel.getToken());
             return ResponseEntity.ok().build();
         }
         log.error("User not found for email: {}", email);
@@ -83,7 +83,7 @@ public class UserService {
     public ResponseEntity<DefaultMessageResponse> resetPassword(String token, PasswordRecoverRequest password) {
         log.info("Reset password for token: {}", token);
         Optional<PasswordResetTokenModel> passwordResetToken = passwordResetTokenRepository.findByToken(token);
-        if (passwordResetToken.isPresent() && !passwordResetToken.get().getUsedToken()) {
+        if (passwordResetToken.isPresent()) { //  && !passwordResetToken.get().getUsedToken()
             log.info("Token found: {}", passwordResetToken.get());
             LocalDateTime tokenCreationTime = passwordResetToken.get().getExpiryDate();
             LocalDateTime expirationTime = tokenCreationTime.plusHours(24);
