@@ -27,6 +27,7 @@ public class TokenService {
             var algoritimo = Algorithm.HMAC256(password);
             return JWT.create()
                     .withIssuer("Lacoos")
+                    .withSubject(userModel.getEmail())
                     .withClaim("id", userModel.getId())
                     .withClaim("name", userModel.getName())
                     .withClaim("email", userModel.getEmail())

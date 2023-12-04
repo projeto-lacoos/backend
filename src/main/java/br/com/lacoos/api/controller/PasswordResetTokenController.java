@@ -17,6 +17,7 @@ public class PasswordResetTokenController {
 
     private final PasswordResetTokenService passwordResetTokenService;
 
+    // CHECAR SE O TOKEN ESTÁ VÁLIDO PARA A TROCA DA SENHA
     @GetMapping("/is-valid/{token}")
     public ResponseEntity<Boolean> isTokenValid(@RequestParam String token){
         log.info("Check if token is valid: {}", token);

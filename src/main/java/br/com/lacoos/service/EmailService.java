@@ -13,7 +13,7 @@ import java.util.Properties;
 @Slf4j
 public class EmailService {
 
-    public void sendEmail(UserModel userModel, String recoverLink){
+        public void sendEmail(UserModel userModel, String recoverLink){
         final String contentHtml = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +

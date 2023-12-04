@@ -15,6 +15,7 @@ import javax.validation.Valid;
 @RequestMapping("/v1/auth")
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     private final UserService userService;

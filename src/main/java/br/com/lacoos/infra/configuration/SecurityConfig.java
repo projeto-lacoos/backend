@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     SecurityFilter securityFilter;
 
-    public void configure(HttpSecurity httpSecurity) throws Exception{
+    public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable()
                 .authorizeRequests().antMatchers(HttpMethod.POST, "/v1/auth/sign-up").permitAll()
@@ -31,10 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/configuration/security",
                         "/swagger-ui.html",
                         "/webjars/**").permitAll()
-                .and().authorizeRequests().antMatchers(HttpMethod.GET, "/v1/auth").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/auth/login").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/user/recover-password").permitAll()
-                .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/user/reset-password/**").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.PATCH, "/v1/user/reset-password/**").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.GET, "/v1/password-reset-token/**").permitAll()
                 .anyRequest().authenticated().and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).cors();
     }
 
