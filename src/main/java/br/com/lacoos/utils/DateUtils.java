@@ -6,6 +6,6 @@ import java.time.format.DateTimeFormatter;
 public class DateUtils {
 
     public static LocalDate parseLocalDate(String date) {
-        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

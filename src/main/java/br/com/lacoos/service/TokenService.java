@@ -31,7 +31,7 @@ public class TokenService {
                     .withClaim("name", userModel.getName())
                     .withClaim("email", userModel.getEmail())
                     .withClaim("password", userModel.getPassword())
-                    .withClaim("cpf", userModel.getCpf())
+                    // .withClaim("cpf", userModel.getCpf())
                     .withClaim("phone", userModel.getPhone())
                     // .withClaim("birth_date", user.getBirthDate()
                     .withExpiresAt(expirationDate())

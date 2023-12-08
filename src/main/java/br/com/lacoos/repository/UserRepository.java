@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserModel, Long> {
-    boolean existsByEmailOrCpf(String email, String cpf);
+    boolean existsByEmail(String email);
 
     UserDetails findByEmail(String email);
 

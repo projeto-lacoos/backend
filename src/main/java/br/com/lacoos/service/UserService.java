@@ -42,8 +42,8 @@ public class UserService {
 
     public ResponseEntity<Void> signUp(UserRequest userRequest) {
         log.info("Save user: {}", userRequest);
-        if (userRepository.existsByEmailOrCpf(userRequest.getEmail(), userRequest.getCpf())) {
-            log.error("E-mail ou CPF já existe");
+        if (userRepository.existsByEmail(userRequest.getEmail())) {
+            log.error("E-mail já existe");
             throw new InvalidParamsException("E-mail ou CPF já existe");
         }
         UserModel userModel = new UserModel();
@@ -73,7 +73,7 @@ public class UserService {
                     .expiryDate(LocalDateTime.now())
                     .build();
             passwordResetTokenRepository.save(passwordResetTokenModel);
-            emailService.sendEmail(user.get(), "http://localhost:3000/resetar-senha/#/" + passwordResetTokenModel.getToken());
+            emailService.sendEmail(user.get(), "http://localhost:3000/resetar-senha/" + passwordResetTokenModel.getToken());
             return ResponseEntity.ok().build();
         }
         log.error("User not found for email: {}", email);

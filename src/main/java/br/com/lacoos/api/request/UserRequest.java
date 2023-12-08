@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,12 +26,18 @@ public class UserRequest {
     @NotBlank
     private String password;
 
-    @NotBlank
-    @CPF
-    private String cpf;
+    // @NotBlank
+    // @CPF
+    // private String cpf;
 
     @NotBlank
     private String phone;
+
+    @NotBlank
+    private String telephone;
+
+    @NotBlank
+    private String sexo;
 
     @NotBlank
     private String birthDate;

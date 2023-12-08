@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -33,14 +34,24 @@ public class UserModel implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "cpf", nullable = false, unique = true)
-    private String cpf;
+    // @Column(name = "cpf", nullable = false, unique = true)
+    // private String cpf;
 
     @Column(name = "phone", nullable = false)
     private String phone;
 
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
+
+    @Column(name = "telephone", nullable = false)
+    private String telephone;
+
+    @Column(name = "sexo", nullable = false)
+    private String sexo;
+
+    @OneToOne
+    @JoinColumn(name = "image_user_model_id_image")
+    private ImageUserModel imageUserModel;
 
     @Override
     public final boolean equals(Object o) {
