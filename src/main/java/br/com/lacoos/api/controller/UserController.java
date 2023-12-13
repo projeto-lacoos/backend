@@ -35,12 +35,4 @@ public class UserController {
         log.info("Reset password for token: {}", token);
         return userService.resetPassword(token, password);
     }
-
-    /* LISTAR DADOS
-    @GetMapping("/my-profile/{id}")
-    public Optional<UserModel> getUserId(@PathVariable Long id){
-        log.info(": {}", id);
-        return userService.getUserById(id);
-    }*/
-
 }

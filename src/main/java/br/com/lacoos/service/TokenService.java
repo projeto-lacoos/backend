@@ -1,5 +1,6 @@
 package br.com.lacoos.service;
 
+import br.com.lacoos.model.FormModel;
 import br.com.lacoos.model.UserModel;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -30,10 +31,8 @@ public class TokenService {
                     .withClaim("id", userModel.getId())
                     .withClaim("name", userModel.getName())
                     .withClaim("email", userModel.getEmail())
-                    .withClaim("password", userModel.getPassword())
-                    // .withClaim("cpf", userModel.getCpf())
                     .withClaim("phone", userModel.getPhone())
-                    // .withClaim("birth_date", user.getBirthDate()
+                    // .withClaim("birth_date", userModel.getBirthDate()
                     .withExpiresAt(expirationDate())
                     .sign(algoritimo);
         } catch (JWTCreationException e){

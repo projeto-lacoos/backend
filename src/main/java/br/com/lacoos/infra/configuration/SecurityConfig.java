@@ -1,7 +1,5 @@
 package br.com.lacoos.infra.configuration;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,8 +16,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    final
     SecurityFilter securityFilter;
+
+    public SecurityConfig(SecurityFilter securityFilter) {
+        this.securityFilter = securityFilter;
+    }
 
     public void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
@@ -36,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/user/recover-password").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.PATCH, "/v1/user/reset-password/**").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/user/perfil/**").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/form/sign-up/form").permitAll()
                 .anyRequest().authenticated().and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).cors();
     }
 
@@ -48,4 +51,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
 }

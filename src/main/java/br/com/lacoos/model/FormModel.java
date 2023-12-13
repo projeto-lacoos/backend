@@ -16,42 +16,42 @@ public class FormModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 255, nullable = false)
     private String estilo;
 
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal orcamento;
 
     @Column(nullable = false)
-    private int tipoDeficiencia;
+    private String tipoDeficiencia;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 255, nullable = false)
     private String grauVisao;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 255, nullable = false)
     private String sensivelALuz;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String musicaEntretenimento;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String restricoesAlimentares;
 
     @Column(nullable = false)
-    private int informacoes;
+    private String informacoes;
 
-    @Column(length = 3, nullable = false)
+    @Column(length = 255, nullable = false)
     private String cadeiraDeRodas;
 
-    @Column(length = 3, nullable = false)
+    @Column(length = 255, nullable = false)
     private String pisoTatil;
 
-    @Column(length = 3, nullable = false)
+    @Column(length = 255, nullable = false)
     private String cardapioBraille;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 255, nullable = false)
     private String nomeParceiro;
 
     @Column(nullable = false)
@@ -60,40 +60,40 @@ public class FormModel {
     @Column(nullable = false)
     private LocalTime horarioCerimonia;
 
-    @Column(length = 80, nullable = false)
+    @Column(length = 255, nullable = false)
     private String ondeMora;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String preferencias;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String preferenciasDecoracao;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String paletaDeCores;
 
-    @Column(length = 3, nullable = false)
+    @Column(length = 255, nullable = false)
     private String indicacaoTatilDanca;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String segurancaPista;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String videoEFoto;
 
-    @Column(length = 3, nullable = false)
+    @Column(length = 255, nullable = false)
     private String descricoesFotos;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String assentos;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String consideracoesAssentos;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String adaptacaoProgramacao;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String necessidades;
 
     @Column(length = 1000, nullable = false)

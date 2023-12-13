@@ -10,5 +10,4 @@ public class LacoosApplication {
         SpringApplication.run(LacoosApplication.class, args);
         System.out.println("Api Rodando!");
     }
-
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
@@ -26,15 +27,10 @@ public class UserRequest {
     @NotBlank
     private String password;
 
-    // @NotBlank
-    // @CPF
-    // private String cpf;
+    private String telephone;
 
     @NotBlank
     private String phone;
-
-    @NotBlank
-    private String telephone;
 
     @NotBlank
     private String sexo;

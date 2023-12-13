@@ -22,5 +22,4 @@ public class PasswordResetTokenController {
         log.info("Check if token is valid: {}", token);
         return passwordResetTokenService.isTokenValid(token);
     }
-
 }

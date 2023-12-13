@@ -6,6 +6,7 @@ import br.com.lacoos.api.request.UserRequest;
 import br.com.lacoos.api.response.DefaultMessageResponse;
 import br.com.lacoos.api.response.TokenResponse;
 import br.com.lacoos.infra.exceptions.InvalidParamsException;
+import br.com.lacoos.model.FormModel;
 import br.com.lacoos.model.PasswordResetTokenModel;
 import br.com.lacoos.model.UserModel;
 import br.com.lacoos.repository.PasswordResetTokenRepository;
@@ -44,11 +45,11 @@ public class UserService {
         log.info("Save user: {}", userRequest);
         if (userRepository.existsByEmail(userRequest.getEmail())) {
             log.error("E-mail já existe");
-            throw new InvalidParamsException("E-mail ou CPF já existe");
+            throw new InvalidParamsException("E-mail já existe");
         }
         UserModel userModel = new UserModel();
         BeanUtils.copyProperties(userRequest, userModel);
-        userModel.setBirthDate(DateUtils.parseLocalDate(userRequest.getBirthDate()));
+        // userModel.setBirthDate(DateUtils.parseLocalDate(userRequest.getBirthDate()));
         userModel.setPassword(encoder.encode(userRequest.getPassword()));
         userRepository.save(userModel);
         return ResponseEntity.ok().build();
@@ -56,7 +57,8 @@ public class UserService {
 
     public ResponseEntity<TokenResponse> login(LoginRequest loginRequest) {
         log.info("Login user: {}", loginRequest);
-        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
+        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
+                loginRequest.getPassword());
         Authentication auth = manager.authenticate(userToken);
         String token = tokenService.generateToken((UserModel) auth.getPrincipal());
         return ResponseEntity.status(HttpStatus.OK).body(new TokenResponse(token));
