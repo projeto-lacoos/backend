@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers(HttpMethod.PATCH, "/v1/user/reset-password/**").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/user/perfil/**").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/form/sign-up/form").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/pag/sign-up/pag").permitAll()
                 .anyRequest().authenticated().and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).cors();
     }
 

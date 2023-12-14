@@ -32,7 +32,8 @@ public class TokenService {
                     .withClaim("name", userModel.getName())
                     .withClaim("email", userModel.getEmail())
                     .withClaim("phone", userModel.getPhone())
-                    // .withClaim("birth_date", userModel.getBirthDate()
+                    .withClaim("birthDate", userModel.getTelephone())
+                    .withClaim("sexo", userModel.getSexo())
                     .withExpiresAt(expirationDate())
                     .sign(algoritimo);
         } catch (JWTCreationException e){

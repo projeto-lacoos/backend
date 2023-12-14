@@ -75,7 +75,7 @@ public class UserService {
                     .expiryDate(LocalDateTime.now())
                     .build();
             passwordResetTokenRepository.save(passwordResetTokenModel);
-            emailService.sendEmail(user.get(), "http://localhost:3000/resetar-senha/" + passwordResetTokenModel.getToken());
+            emailService.sendEmail(user.get(), "http://lacoos.tech/resetar-senha/" + passwordResetTokenModel.getToken());
             return ResponseEntity.ok().build();
         }
         log.error("User not found for email: {}", email);
