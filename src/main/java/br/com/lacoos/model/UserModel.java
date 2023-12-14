@@ -37,6 +37,7 @@ public class UserModel implements UserDetails {
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @Column(name = "telephone", nullable = false)
     private String telephone;
 
     @Column(name = "birth_date", nullable = false)
