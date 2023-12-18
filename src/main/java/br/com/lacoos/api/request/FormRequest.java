@@ -55,10 +55,10 @@ public class FormRequest {
     private String nomeParceiro;
 
     @NotNull
-    private LocalDate dataCerimonia;
+    private String dataCerimonia;
 
     @NotNull
-    private LocalTime horarioCerimonia;
+    private String horarioCerimonia;
 
     @NotBlank
     private String ondeMora;

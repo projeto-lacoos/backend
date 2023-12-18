@@ -11,11 +11,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
+@Table(name = "cadastro")
 @Getter
 @Setter
 public class UserModel implements UserDetails {
@@ -25,25 +26,25 @@ public class UserModel implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome", nullable = false, length = 255)
     private String name;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "senha", nullable = false, length = 255)
     private String password;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "celular", nullable = false, length = 20)
     private String phone;
 
-    @Column(name = "telephone", nullable = false)
+    @Column(name = "telefone", nullable = false, length = 20)
     private String telephone;
 
-    @Column(name = "birth_date", nullable = false)
-    private String birthDate;
+    @Column(name = "data_de_nascimento", nullable = false)
+    private LocalDate birthDate;
 
-    @Column(name = "sexo", nullable = false)
+    @Column(name = "sexo", nullable = false, length = 50)
     private String sexo;
 
     @Override

@@ -3,6 +3,7 @@ package br.com.lacoos.service;
 import br.com.lacoos.api.request.FormRequest;
 import br.com.lacoos.model.FormModel;
 import br.com.lacoos.repository.FormRepository;
+import br.com.lacoos.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +20,7 @@ public class FormService {
     public ResponseEntity<Void> signUpForm(FormRequest formRequest){
         log.info("Save form: {}", formRequest);
         FormModel formModel = new FormModel();
+        // formModel.setDataCerimonia(DateUtils.parseLocalDate(formRequest, formModel));
         BeanUtils.copyProperties(formRequest, formModel);
         formRepository.save(formModel);
         return ResponseEntity.ok().build();

@@ -55,10 +55,10 @@ public class FormModel {
     private String nomeParceiro;
 
     @Column(nullable = false)
-    private LocalDate dataCerimonia;
+    private String dataCerimonia;
 
     @Column(nullable = false)
-    private LocalTime horarioCerimonia;
+    private String horarioCerimonia;
 
     @Column(length = 255, nullable = false)
     private String ondeMora;
